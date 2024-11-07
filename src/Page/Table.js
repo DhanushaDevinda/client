@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "@emotion/styled";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import MoreIcons from "../Assets/moreIcon.svg";
-import Response from "./Response";
-import { Table, Input, Button } from "antd";
-import { Dropdown, Menu } from "antd";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import MoreIcons from '../Assets/moreIcon.svg';
+import Response from './Response';
+import { Table, Input, Button } from 'antd';
+import { Dropdown, Menu } from 'antd';
 
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 
 const LastColumn = styled.div`
@@ -53,47 +53,47 @@ const StyledTable = styled(Table)`
 
 const columns = (showModal) => [
   {
-    title: "ERP",
-    dataIndex: "erp",
+    title: 'ERP',
+    dataIndex: 'erp',
   },
   {
-    title: "Requester Name",
-    dataIndex: "requesterName",
+    title: 'Requester Name',
+    dataIndex: 'requesterName',
   },
   {
-    title: "Department",
-    dataIndex: "department",
+    title: 'Department',
+    dataIndex: 'department',
   },
   {
-    title: "Pay Grade",
-    dataIndex: "payGrade",
+    title: 'Pay Grade',
+    dataIndex: 'payGrade',
   },
   {
-    title: "Accommodation Location",
-    dataIndex: "accommodationLocation",
+    title: 'Accommodation Location',
+    dataIndex: 'accommodationLocation',
   },
   {
-    title: "Joining Date",
-    dataIndex: "joiningDate",
+    title: 'Joining Date',
+    dataIndex: 'joiningDate',
     render: (recode, data) => {
-      const date = dayjs(recode).format("YYYY-MMM-DD");
+      const date = dayjs(recode).format('YYYY-MMM-DD');
 
       return <>{date}</>;
     },
   },
   {
-    title: "Mobile No",
-    dataIndex: "mobileNo",
+    title: 'Mobile No',
+    dataIndex: 'mobileNo',
   },
 
   {
-    title: "Eligibility",
-    dataIndex: "housingRequestAllowance",
+    title: 'Eligibility',
+    dataIndex: 'housingRequestAllowance',
   },
 
   {
-    title: "",
-    dataIndex: "id",
+    title: '',
+    dataIndex: 'id',
     render: (record, data) => {
       return (
         <>
@@ -122,7 +122,7 @@ const columns = (showModal) => [
                   </Menu.Item>
                 </DropdownMenu>
               }
-              trigger={["click"]}
+              trigger={['click']}
             >
               <Image onClick={(e) => e.preventDefault()} src={MoreIcons} />
             </Dropdown>
@@ -143,7 +143,7 @@ function AllowanceTable() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(8);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   const showModal = (id) => {
     setIsModalOpen(true);
@@ -156,7 +156,7 @@ function AllowanceTable() {
 
   const fetchData = async (page, pageSize, search) => {
     try {
-      const response = await axios.get("/allowance", {
+      const response = await axios.get('/allowance', {
         params: {
           page,
           limit: pageSize,
@@ -166,7 +166,7 @@ function AllowanceTable() {
       setData(response.data.data);
       setTotal(response.data.total);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error);
     }
   };
 
@@ -178,28 +178,29 @@ function AllowanceTable() {
   return (
     <div
       style={{
-        padding: "14px",
+        padding: '14px',
       }}
     >
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          padding: "16px 0px",
+          display: 'flex',
+          alignItems: 'center',
+          padding: '16px 0px',
         }}
       >
         <Input.Search
           placeholder="Search by ERP"
           onChange={handleSearch}
-          style={{ paddingRight: "16px" }}
+          style={{ paddingRight: '16px' }}
         />
-        <Button type="primary" onClick={() => navigate("/form")}>
+        <Button type="primary" onClick={() => navigate('/form')}>
           Add Request
         </Button>
       </div>
 
       <StyledTable
         columns={columns(showModal)}
+        scroll={{ x: 'max-content' }}
         dataSource={data}
         pagination={{
           current: page,
