@@ -200,7 +200,7 @@ function AllowanceTable() {
 
       <StyledTable
         columns={columns(showModal)}
-        scroll={{ x: 'max-content' }}
+        scroll={{ x: true }}
         dataSource={data}
         pagination={{
           current: page,
